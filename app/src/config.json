@@ -1,0 +1,6 @@
+{
+    "uri": "https://kiryuu.id",
+    "server": "http://localhost:5000",
+    "client": "http://localhost:3000",
+    "title": "Kiryuu"
+}

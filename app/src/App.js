@@ -1,23 +1,26 @@
 import React from "react";
 import axios from "axios";
 import "./style.css";
+import config from "./config.json";
 
 export default class App extends React.Component {
+  // get api data then add to variable
   state = {
-    json: [],
+    json: []
   };
   componentDidMount() {
-    axios.get("/api/home").then((response) => {
-      this.setState({ json: response.data });
+    axios.get(config.server + "/api/home").then((res) => {
+      this.setState({ json: res.data.result });
     });
   }
 
   render() {
-    const { json } = this.state;
     return (
       <div>
-        <h1>Users</h1>
+        <h1>asd</h1>
       </div>
     );
+
+
   }
 }
