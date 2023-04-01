@@ -1,12 +1,14 @@
-import React from "react";
-import $ from "jquery";
+import React, { useState, useEffect } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import config from "../../config.json";
 
-export default class NavBar extends React.Component {
-    render() {
-        return (
+const NavBar = () => {
+    return (
+        <HelmetProvider>
+            <Helmet>
+                <title>{config.title}</title>
+            </Helmet>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container">
                     <Link className="navbar-brand" to="/">{config.title}</Link>
@@ -25,13 +27,38 @@ export default class NavBar extends React.Component {
                                 <Link className="nav-link" to="/bookmark">Bookmark</Link>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <ul className="navbar-nav mb-2 mb-lg-0 d-flex">
+                            <li className="nav-item dropdown">
+                                <button className="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (dark)">
+                                    <i className="bi bi-moon-fill me-2 theme-icon-active" data-icon-active='bi-moon-fill'></i>
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+                                    <li>
+                                        <button type="button" className="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                                            <i className="bi bi-sun-fill me-2 " data-icon-active='bi-sun-fill'></i>
+                                            Light
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" className="dropdown-item d-flex align-items-center active" data-bs-theme-value="dark" aria-pressed="true">
+                                            <i className="bi bi-moon-fill me-2" data-icon-active='bi-moon-fill'></i>
+                                            Dark
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" className="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                                            <i className="bi bi-circle-half me-2" data-icon-active='bi-circle-half'></i>
+                                            Auto
+                                        </button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
-        )
-    }
+        </HelmetProvider>
+    )
+
 }
+export default NavBar;
