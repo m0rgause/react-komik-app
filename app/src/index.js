@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import BookDetail from './dist/Components/book_detail';
+import BookDetail from './dist/Containers/book_detail';
 import NavBar from './dist/Components/nav_bar';
-import Home from './dist/Components/home';
+import Home from './dist/Containers/home';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
