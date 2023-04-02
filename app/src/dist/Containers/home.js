@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
 import ImageLoader from "../Components/image_loader";
+import BookType from "../Components/book_type";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -73,6 +74,10 @@ const Home = () => {
                                                         <div className="empty-stars"></div>
                                                         <div className="full-stars" style={{ width: decimalToPercent(el.rating) }}></div>
                                                         <span className="text-muted">{el.rating}</span>
+                                                    </div>
+                                                    <br />
+                                                    <div className="badge">
+                                                        <BookType className={el.type} />
                                                     </div>
                                                 </div>
                                             </div>
