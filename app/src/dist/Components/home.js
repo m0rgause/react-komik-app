@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
-// import 'owl.carousel/dist/assets/owl.carousel.css';
-// import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -39,8 +37,6 @@ const Home = () => {
             }
         }
     }
-    // console.log(popular, newRelease, project)
-    // popular.length = 6;
     return (
         <div className="container">
             {/* Popular */}
