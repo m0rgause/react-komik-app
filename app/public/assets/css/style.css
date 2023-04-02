@@ -13,6 +13,63 @@
     box-shadow: none !important;
 }
 
+.popularHover:hover {
+    opacity: 0.5;
+}
+
+.title:hover {
+    opacity: 1;
+    color: #aa87df !important;
+}
+
+.owl-item>div {
+    cursor: pointer;
+    transition: margin 0.4s ease;
+}
+
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel button.owl-dot {
+    background: 0 0;
+    color: inherit;
+    border: none;
+    /* padding-top: 20px !important; */
+    padding-bottom: 5px !important;
+    font: inherit;
+}
+
+.owl-prev {
+    left: -15px;
+    border-radius: 0 5px 5px 0;
+}
+
+.owl-prev>span {
+    font-size: 29px;
+    font-weight: 1000;
+}
+
+.owl-next>span {
+    font-size: 29px;
+    font-weight: 1000;
+}
+
+.owl-next {
+    right: -15px;
+    border-radius: 0 5px 5px 0;
+}
+
+.owl-prev,
+.owl-next {
+    position: absolute;
+    top: 30%;
+    margin-top: -41px;
+    font-size: 29px;
+    color: #fff !important;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background: #6e4f9d !important;
+    width: 50px;
+}
 
 .ratings {
     position: relative;

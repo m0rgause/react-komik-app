@@ -17,7 +17,8 @@ $link-hover-color-dark: $body-tertiary-bg !default;
 }
 
 .navbar .nav-link {
-    color: rgba($color: #fff, $alpha: 0.65) !important;
+    color: rgba($color: #fff, $alpha: 0.65);
 }
+
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

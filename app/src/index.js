@@ -12,12 +12,10 @@ root.render(
     <BrowserRouter>
       <div>
         <NavBar />
-        <div className='container'>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/book/:path" element={<BookDetail />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/book/:path" element={<BookDetail />} />
+        </Routes>
       </div>
     </BrowserRouter>
   </React.StrictMode>
