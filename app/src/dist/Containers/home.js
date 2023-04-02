@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
+import ImageLoader from "../Components/image_loader";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -21,10 +22,10 @@ const Home = () => {
             .catch((error) => console.log(error));
     }, []);
     const options = {
-        loop: true,
+        // loop: true,
         nav: true,
         dots: false,
-        center: true,
+        // center: true,
         responsive: {
             0: {
                 items: 2
@@ -59,7 +60,8 @@ const Home = () => {
                                     <div className="px-2 my-2">
                                         <a href={el.path} className="popularHover">
                                             <div className="card popular">
-                                                <img src={el.thumb} />
+                                                <ImageLoader src={el.thumb} alt={el.title} />
+                                                {/* <img src={el.thumb} /> */}
                                                 <div className="card-body">
                                                     <h6 className="card-title title fs-6 lh-1 word-break" style={{
                                                         color: "var(--bs-emphasis-color)"
