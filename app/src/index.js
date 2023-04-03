@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BookDetail from './dist/Containers/book_detail';
 import NavBar from './dist/Components/nav_bar';
 import Home from './dist/Containers/home';
+import Footer from './dist/Components/footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,6 +18,9 @@ root.render(
           <Route path="/book/:path" element={<BookDetail />} />
         </Routes>
       </div>
+      <section className="footer">
+        <Footer />
+      </section>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode >
 );

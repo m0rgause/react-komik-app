@@ -1,5 +1,5 @@
-<svg version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" width="150px" height="150px">
-    <circle fill="none" stroke="#30f2f2" stroke-width="6" stroke-miterlimit="15" stroke-dasharray="14.2472,14.2472" cx="50" cy="50" r="47" >
+<svg version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" width="100px" height="100px">
+    <circle fill="none" stroke="#6e4f9d" stroke-width="6" stroke-miterlimit="15" stroke-dasharray="14.2472,14.2472" cx="50" cy="50" r="47" >
       <animateTransform 
          attributeName="transform" 
          attributeType="XML" 
@@ -19,7 +19,7 @@
          to="-360 50 50" 
          repeatCount="indefinite" />
   </circle>
-  <g fill="#f23041">
+  <g fill="#fff">
   <rect x="30" y="35" width="5" height="30">
     <animateTransform 
        attributeName="transform" 

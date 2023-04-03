@@ -4,6 +4,7 @@ import OwlCarousel from 'react-owl-carousel';
 import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
 import BookStatus from "../Components/book_status";
+import Galleries from "../Components/galleries";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -99,61 +100,11 @@ const Home = () => {
             <div className="row">
                 <div className="col-md-9">
                     {/* Project */}
-                    <div className="card mt-5 shadow">
-                        <div className="card-header">
-                            <div className="d-flex">
-                                <div style={{
-                                    backgroundColor: "var(--bs-body-bg)",
-                                    marginBottom: "-10px"
-                                }} className="px-3 pt-2 rounded-top">
-                                    <h6 className="card-title">Project</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card-body">
-                            <div className="row">
-                                {project.map((el, index) => (
-                                    <div key={index} className="col-md-6 col-lg-4 py-3 border-bottom">
-                                        <div className="row">
-                                            <div className="col-md-4 col-4 col-sm-4">
-                                                <a href={el.path}>
-                                                    <ImageLoader src={el.thumb} alt={el.title} />
-                                                </a>
-                                            </div>
-                                            <div className="col-md-8 col-8 col-sm-8">
-                                                <div className="float-start" style={{ width: "100%" }} >
-                                                    <a href={el.path} className="card-title fw-medium title fs-6 lh-1 word-break" style={{
-                                                        color: "var(--bs-emphasis-color)"
-                                                    }}>{el.title}</a>
-                                                    <div className="chInfo mt-2">
-                                                        <ul style={{ paddingLeft: "1rem" }}>
-                                                            {el.chapters.map((ell, i) => (
-                                                                <li>
-                                                                    <div className="float-start">
-                                                                        <a className="title fw-light" style={{
-                                                                            color: "var(--bs-emphasis-color)",
-                                                                            fontSize: "14px"
-                                                                        }} href={ell.path}>{ell.ch}</a>
-                                                                    </div>
-                                                                    <div className="float-end">
-                                                                        <span className="text-muted" style={{
-                                                                            fontSize: "12px"
-                                                                        }}>{ell.date_updated}</span>
-                                                                    </div>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-
-                            </div>
-                        </div>
-                    </div>
+                    <Galleries data={project} title={"Project"} />
                     {/* End Project */}
+                    {/* New Release */}
+                    <Galleries data={newRelease} title={"New Release"} />
+                    {/* End New Release */}
                 </div>
                 <div className="col-md-3 col-lg-3 d-none d-sm-block">
                     <div className="card mt-5 shadow">
