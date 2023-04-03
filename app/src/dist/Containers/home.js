@@ -111,6 +111,21 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="card-body">
+                            <div className="row">
+                                {project.map((el, index) => (
+                                    <div key={index} className="col-md-4">
+                                        <div className="row">
+                                            <div className="col-md-4">
+                                                {/* <ImageLoader src={el.thumb} alt={el.title} /> */}
+                                                asdasdasdasd
+                                            </div>
+                                            <div className="col-md-8">
+                                                <div className="float-start">asd</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                     {/* End Project */}

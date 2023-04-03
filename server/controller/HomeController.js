@@ -37,6 +37,7 @@ const home = async (req, res) => {
             project.push({
                 title: $(el).find('div.imgu > a').attr('title'),
                 path: _replace($(el).find('div.imgu > a').attr('href')),
+                thumb: $(el).find('div.imgu > a > img').attr('src'),
                 type: $(el).find('div.luf > ul').attr('class'),
                 chapters: chapters
             })
