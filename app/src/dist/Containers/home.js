@@ -3,6 +3,7 @@ import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
 import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
+import BookStatus from "../Components/book_status";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -76,8 +77,13 @@ const Home = () => {
                                                         <span className="text-muted">{el.rating}</span>
                                                     </div>
                                                     <br />
-                                                    <div className="badge">
-                                                        <BookType className={el.type} />
+                                                    <div className="badgeInfo">
+                                                        <div className="float-start ms-2 mt-2">
+                                                            <BookType className={el.type} />
+                                                        </div>
+                                                        <div className="float-end me-2 mt-2">
+                                                            <BookStatus className={el.status} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
