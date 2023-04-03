@@ -13,7 +13,7 @@ const ImageLoader = (props) => {
                 loader={
                     <img alt="loading" src={require("../img/loader.svg").default} />
                 }
-            />
+                style={{ width: "100%" }} />
         </LazyLoad>
     );
 }
