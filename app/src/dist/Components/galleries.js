@@ -20,7 +20,7 @@ const Galleries = (props) => {
                         <div key={index} className="col-md-6 col-lg-4 py-3 border-bottom">
                             <div className="row">
                                 <div className="col-md-4 col-4 col-sm-4">
-                                    <a href={el.path}>
+                                    <a href={el.path} className='galleriesThumb'>
                                         <ImageLoader src={el.thumb} alt={el.title} />
                                     </a>
                                 </div>
@@ -32,7 +32,7 @@ const Galleries = (props) => {
                                         <div className="chInfo mt-2">
                                             <ul style={{ paddingLeft: "1rem" }}>
                                                 {el.chapters.map((ell, i) => (
-                                                    <li>
+                                                    <li key={i}>
                                                         <div className="float-start">
                                                             <a className="title fw-light" style={{
                                                                 color: "var(--bs-emphasis-color)",

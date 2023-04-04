@@ -3,7 +3,6 @@ import { Img } from "react-image";
 import LazyLoad from "react-lazy-load";
 
 const ImageLoader = (props) => {
-    // console.log(props)
     return (
         <LazyLoad>
             <Img

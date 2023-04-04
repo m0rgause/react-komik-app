@@ -16,7 +16,7 @@ const Home = () => {
     const [project, setProject] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/home")
+        axios.get("https://api.kikii.me/api/home")
             .then((response) => {
                 setPopular(response.data.result.popular);
                 setNewRelease(response.data.result.newRelease);
@@ -63,8 +63,9 @@ const Home = () => {
                                     <div className="px-2 my-2">
                                         <a href={el.path} className="popularHover">
                                             <div className="card popular">
-                                                <ImageLoader src={el.thumb} alt={el.title} />
-                                                {/* <img src={el.thumb} /> */}
+                                                <div className="thumb" >
+                                                    <ImageLoader src={el.thumb} alt={el.title} />
+                                                </div>
                                                 <div className="card-body">
                                                     <h6 className="card-title title fs-6 lh-1 word-break" style={{
                                                         color: "var(--bs-emphasis-color)"

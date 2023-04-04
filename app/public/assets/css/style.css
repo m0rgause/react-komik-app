@@ -128,3 +128,34 @@
         color: #ECBE24;
     }
 }
+
+.thumb {
+    position: relative;
+    padding: 134% 0 0;
+    overflow: hidden;
+}
+
+.thumb>div>img {
+    width: 100% !important;
+    height: auto;
+    top: 0;
+    position: absolute;
+}
+
+
+.galleriesThumb {
+    display: block;
+    position: relative;
+    height: 105px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+
+.galleriesThumb>div>img {
+    max-width: 100% !important;
+    width: 75px;
+    height: auto;
+    /* top: 0;
+    position: absolute; */
+}
