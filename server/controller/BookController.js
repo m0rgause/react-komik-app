@@ -5,6 +5,12 @@ const { uri } = require('../config.json');
 function _replace(link) {
     return link.replace(uri, '')
 }
+function _replace2(link) {
+    return link.replace(uri + '/manga/', '')
+}
+function _replaceSpace(link) {
+    return link.replaceAll('\t', '').replaceAll('\n', '').replaceAll('\r', '').trim()
+}
 const read = async (req, res) => {
     try {
         const path = req.params.path
@@ -29,8 +35,77 @@ const read = async (req, res) => {
         })
     } catch (error) {
         console.log([error.code, error.request.res.statusCode, error.config.url])
+        return res.status(404).send({ code: 404, message: [error.code, error.request.res.statusCode] })
+    }
+}
+
+const detail = async (req, res) => {
+    try {
+        const path = req.params.path
+        const response = await Axios.get(`${uri}/manga/${path}`)
+        $ = cheerio.load(response.data);
+
+        const title = {
+            english: _replaceSpace($("h1.entry-title").eq(0).text()),
+            full: _replaceSpace($("div.seriestualt").eq(0).text())
+        }
+        const thumb = $("div.thumb > img").attr("src")
+        const description = _replaceSpace($("div.seriestuhead > div").attr("itemprop", "description").eq(0).text())
+        const chapters = {
+            first: {
+                ch: $("div.seriestuhead > div.lastend > div.inepcx").eq(0).find('span.epcurfirst').text(),
+                path: $("div.seriestuhead > div.lastend > div.inepcx").eq(0).find("a").attr("href"),
+            },
+            last: {
+                ch: $("div.seriestuhead > div.lastend > div.inepcx").eq(1).find('span.epcurlast').text(),
+                path: _replace($("div.seriestuhead > div.lastend > div.inepcx").eq(1).find("a").attr("href")),
+            },
+            list: $("#chapterlist > ul.clstyle > li").map((i, el) => {
+                return {
+                    ch: $(el).find("div.eph-num > a > span.chapternum").text(),
+                    uploaded: $(el).find("div.eph-num > a > span.chapterdate").text(),
+                    path: _replace($(el).find("div.eph-num > a").attr("href")),
+
+                }
+            }).get()
+
+        }
+
+        const info = {
+            status: _replaceSpace($("table.infotable > tbody > tr > td:contains('Status')").parent().find("td").eq(1).text()),
+            released: _replaceSpace($("table.infotable > tbody > tr > td:contains('Released')").parent().find("td").eq(1).text()),
+            artis: _replaceSpace($("table.infotable > tbody > tr > td:contains('Artist')").parent().find("td").eq(1).text()),
+            updatedOn: _replaceSpace($("table.infotable > tbody > tr > td:contains('Updated On')").parent().find("td").eq(1).text()),
+            type: _replaceSpace($("table.infotable > tbody > tr > td:contains('Type')").parent().find("td").eq(1).text()),
+            author: _replaceSpace($("table.infotable > tbody > tr > td:contains('Author')").parent().find("td").eq(1).text()),
+            postedOn: _replaceSpace($("table.infotable > tbody > tr > td:contains('Posted On')").parent().find("td").eq(1).text()),
+        }
+        const genres = $("div.seriestugenre > a").map((i, el) => {
+            return {
+                tag: $(el).text(),
+                path: _replace($(el).attr("href"))
+            }
+        }).get()
+
+
+
+        return res.status(200).send({
+            code: 200,
+            message: "Successfully",
+            result: {
+                title: title,
+                thumb: thumb,
+                description: description,
+                chapters: chapters,
+                info: info,
+                genres: genres,
+            },
+        })
+
+    } catch (err) {
+        console.log([error.code, error.request.res.statusCode, error.config.url])
         return res.status(404).send({ code: 404, message: "Not Found" })
     }
 }
 
-module.exports = { read }
+module.exports = { read, detail }

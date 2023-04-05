@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const { uri } = require('../config.json');
 
 function _replace(link) {
-    return link.replace(uri, '')
+    return link.replace(uri + '/manga', '')
 }
 const home = async (req, res) => {
     try {
