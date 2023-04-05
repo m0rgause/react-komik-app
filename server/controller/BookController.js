@@ -11,6 +11,25 @@ function _replace2(link) {
 function _replaceSpace(link) {
     return link.replaceAll('\t', '').replaceAll('\n', '').replaceAll('\r', '').trim()
 }
+
+function getRelated(books) {
+    let book = []
+    books.each((i, el) => {
+        book.push({
+            title: $(el).find("div.bsx > a").attr('title'),
+            path: _replace($(el).find("div.bsx > a").attr("href")),
+            type: $(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="type"]').attr('class').replace("type", ''),
+            status: ($(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="status"]').text() !== "") ? "Completed" : "Ongoing",
+            thumb: $(el).find('div.bsx > a').eq(0).find("img").attr('src'),
+            chapter: $(el).find('div.bsx > a > div.bigor > div.adds > div.epxs ').text(),
+            rating: Number($(el).find('div.bsx > a > div.bigor > div.adds > div.rt > div.rating > div.numscore ').text()),
+
+        })
+    })
+    return book
+
+}
+
 const read = async (req, res) => {
     try {
         const path = req.params.path
@@ -87,6 +106,7 @@ const detail = async (req, res) => {
             }
         }).get()
 
+        const related = getRelated($('div.listupd > div.bs'))
 
 
         return res.status(200).send({
@@ -100,6 +120,7 @@ const detail = async (req, res) => {
                 info: info,
                 genres: genres,
             },
+            related: related
         })
 
     } catch (err) {
