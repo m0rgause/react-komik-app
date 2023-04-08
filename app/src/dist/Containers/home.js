@@ -25,10 +25,8 @@ const Home = () => {
             .catch((error) => console.log(error));
     }, []);
     const options = {
-        // loop: true,
         nav: true,
         dots: false,
-        // center: true,
         responsive: {
             0: {
                 items: 2
@@ -61,7 +59,7 @@ const Home = () => {
                             {popular.map((el, index) => (
                                 <div key={index}>
                                     <div className="px-2 my-2">
-                                        <a href={el.path} className="popularHover">
+                                        <a href={"book" + el.path} className="popularHover">
                                             <div className="card popular">
                                                 <div className="thumb" >
                                                     <ImageLoader src={el.thumb} alt={el.title} />
