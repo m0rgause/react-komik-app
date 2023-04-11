@@ -44,9 +44,35 @@ const BookDetail = () => {
                             <div className="col-md-10 col-12 mt-3">
                                 <p className="text-muted lh-1 word-break">{result?.title?.full}</p>
                                 <p className="text-muted" style={{ fontSize: "14px" }}>{result?.description}</p>
-                                <div className="d-flex justify-content-md-start justify-content-evenly">
+                                <div className="d-flex justify-content-md-start justify-content-evenly my-3">
                                     <a href={result?.chapters?.first?.path} className="btn bg-body-tertiary text-white mx-1"><font className="text-muted">First: </font>{result?.chapters?.first?.ch}</a>
                                     <a href={result?.chapters?.last?.path} className="btn bg-body-tertiary text-white mx-1"><font className="text-muted">Last: </font>{result?.chapters?.last?.ch}</a>
+                                </div>
+                                <div className="info">
+                                    <span>
+                                        <b>Status : </b>
+                                        {result?.info?.status}
+                                    </span>
+                                    <span>
+                                        <b>Released : </b>
+                                        {result?.info?.released}
+                                    </span>
+                                    <span>
+                                        <b>Artist : </b>
+                                        {result?.info?.artis}
+                                    </span>
+                                    <span>
+                                        <b>Type : </b>
+                                        {result?.info?.type}
+                                    </span>
+                                    <span>
+                                        <b>Author : </b>
+                                        {result?.info?.author}
+                                    </span>
+                                    <span>
+                                        <b>postedOn : </b>
+                                        {result?.info?.postedOn}
+                                    </span>
                                 </div>
                             </div>
                         </div>
