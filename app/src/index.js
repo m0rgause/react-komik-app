@@ -5,6 +5,7 @@ import BookDetail from './dist/Containers/book_detail';
 import NavBar from './dist/Components/nav_bar';
 import Home from './dist/Containers/home';
 import Footer from './dist/Components/footer';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

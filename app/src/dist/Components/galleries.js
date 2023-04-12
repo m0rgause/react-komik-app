@@ -7,7 +7,7 @@ const Galleries = (props) => {
             <div className="card-header">
                 <div className="d-flex">
                     <div style={{
-                        backgroundColor: "var(--bs-body-bg)",
+                        backgroundColor: "var(--bs-secondary-bg)",
                         marginBottom: "-10px"
                     }} className="px-3 pt-2 rounded-top">
                         <h6 className="card-title">{props.title}</h6>

@@ -159,3 +159,30 @@
     /* top: 0;
     position: absolute; */
 }
+
+.bgH:hover {
+    background-color: #573e7d !important;
+}
+
+.listCH a:hover {
+    color: #fff !important;
+}
+
+.card {
+    background-color: var(--bs-secondary-bg) !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--bs-tertiary-bg);
+}

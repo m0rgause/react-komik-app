@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { HelmetProvider } from "react-helmet-async";
 import OwlCarousel from 'react-owl-carousel';
 import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
@@ -46,7 +47,7 @@ const Home = () => {
                 <div className="card-header">
                     <div className="d-flex">
                         <div style={{
-                            backgroundColor: "var(--bs-body-bg)",
+                            backgroundColor: "var(--bs-secondary-bg)",
                             marginBottom: "-10px"
                         }} className="px-3 pt-2 rounded-top">
                             <h6 className="card-title">Popular</h6>
@@ -110,7 +111,7 @@ const Home = () => {
                         <div className="card-header">
                             <div className="d-flex">
                                 <div style={{
-                                    backgroundColor: "var(--bs-body-bg)",
+                                    backgroundColor: "var(--bs-secondary-bg)",
                                     marginBottom: "-10px"
                                 }} className="px-3 pt-2 rounded-top">
                                     <h6 className="card-title">Last Read</h6>

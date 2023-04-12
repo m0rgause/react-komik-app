@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
 import config from "../../config.json";
+import ListCh from "../Components/list_ch";
 
 const BookDetail = () => {
     const { path } = useParams();
     const [result, setResult] = useState([]);
     const [related, setRelated] = useState([]);
+    const [search, setSearch] = useState('');
+    console.log(search)
 
     useEffect(() => {
         axios.get(`${config.server}api/book/detail/${path}`)
@@ -39,7 +42,7 @@ const BookDetail = () => {
                         <div className="row">
                             <div className="col-md-3 col-12 text-center">
                                 <img src={result?.thumb} alt={result?.title?.english} width="100%" className="mb-3" />
-                                <a href="asd" className="btn bg-body-tertiary form-control text-white"><i className="bi bi-bookmark"></i> Bookmark</a>
+                                <a href="#" className="btn bg-body-tertiary form-control text-white bgH"><i className="bi bi-bookmark"></i> Bookmark</a>
                             </div>
                             <div className="col-md-9 col-12 mt-3">
                                 {result?.title?.full !== '' ?
@@ -47,8 +50,8 @@ const BookDetail = () => {
                                     : null}
                                 <p className="text-muted" style={{ fontSize: "14px" }}>{result?.description}</p>
                                 <div className="d-flex justify-content-md-start justify-content-evenly my-3">
-                                    <a href={result?.chapters?.first?.path} className="btn bg-body-tertiary text-white mx-1"><font className="text-muted">First: </font>{result?.chapters?.first?.ch}</a>
-                                    <a href={result?.chapters?.last?.path} className="btn bg-body-tertiary text-white mx-1"><font className="text-muted">Last: </font>{result?.chapters?.last?.ch}</a>
+                                    <a href={result?.chapters?.first?.path} className="btn bg-body-tertiary text-white mx-1 bgH"><font className="text-muted">First: </font>{result?.chapters?.first?.ch}</a>
+                                    <a href={result?.chapters?.last?.path} className="btn bg-body-tertiary text-white mx-1 bgH"><font className="text-muted">Last: </font>{result?.chapters?.last?.ch}</a>
                                 </div>
                                 <div className="info d-flex flex-column ">
                                     {result?.info?.status !== '' ?
@@ -86,10 +89,20 @@ const BookDetail = () => {
                                 </div>
                                 <div className="genre mt-3">
                                     {result?.genres?.map((genre, index) => (
-                                        <a href={genre?.path} className="btn bg-body-tertiary text-white mx-1 my-1" key={index}>{genre?.tag}</a>
+                                        <a href={genre?.path} className="btn bg-body-tertiary text-white mx-1 my-1 bgH" key={index}>{genre?.tag}</a>
                                     ))}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="card mt-3">
+                    <div className="card-body">
+                        <div className="searchCH border-bottom pb-3">
+                            <input type="text" onChange={(e) => setSearch(e.target.value)} className="form-control" placeholder="Search Chapter" />
+                        </div>
+                        <div className="listCH mt-3 d-flex flex-column overflow-y-scroll" style={{ height: '300px' }}>
+                            <ListCh chapters={result?.chapters} search={search} />
                         </div>
                     </div>
                 </div>
