@@ -4,15 +4,15 @@ const BookType = (props) => {
     const { className } = props;
     if (className === ' Manga') {
         return (
-            <span className="type manga"><img alt="Type" src={'assets/img/manga.png'} /></span>
+            <span className="type manga"><img style={{ width: '100%' }} alt="Type" src={'/assets/img/manga.png'} /></span>
         );
     } else if (className === ' Manhua') {
         return (
-            <span className="type manhua"><img alt="Type" src={'assets/img/manhua.png'} /></span>
+            <span className="type manhua"><img style={{ width: '100%' }} alt="Type" src={'/assets/img/manhua.png'} /></span>
         );
     } else if (className === ' Manhwa') {
         return (
-            <span className="type manhwa"><img alt="Type" src={'assets/img/manhwa.png'} /></span>
+            <span className="type manhwa"><img style={{ width: '100%' }} alt="Type" src={'/assets/img/manhwa.png'} /></span>
         );
     }
 }

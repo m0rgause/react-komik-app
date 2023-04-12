@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { HelmetProvider } from "react-helmet-async";
 import OwlCarousel from 'react-owl-carousel';
 import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
@@ -60,7 +59,7 @@ const Home = () => {
                             {popular.map((el, index) => (
                                 <div key={index}>
                                     <div className="px-2 my-2">
-                                        <a href={"book" + el.path} className="popularHover">
+                                        <a href={"/book" + el.path} className="popularHover">
                                             <div className="card popular">
                                                 <div className="thumb" >
                                                     <ImageLoader src={el.thumb} alt={el.title} />

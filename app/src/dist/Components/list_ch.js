@@ -13,10 +13,11 @@ const ListCh = (props) => {
     return (
         <>
             {chapters?.map((chapter, index) => (
-                <a key={index} href={chapter.path} className="border my-1 p-2 me-2 bgH" style={{
+                <a key={index} href={chapter.path} className="border my-1 rounded p-2 bgH" style={{
                     color: "var(--bs-body-color)",
                 }}>
-                    {chapter.ch}
+                    <span>{chapter.ch}</span>
+                    <span className="text-muted float-end">{chapter.uploaded}</span>
                 </a>
             ))}
         </>

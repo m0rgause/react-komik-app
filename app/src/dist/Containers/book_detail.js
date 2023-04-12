@@ -4,6 +4,13 @@ import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
 import config from "../../config.json";
 import ListCh from "../Components/list_ch";
+import ImageLoader from "../Components/image_loader";
+import BookType from "../Components/book_type";
+import BookStatus from "../Components/book_status";
+
+const decimalToPercent = (decimal) => {
+    return Math.round(decimal * 10) + "%";
+}
 
 const BookDetail = () => {
     const { path } = useParams();
@@ -103,6 +110,55 @@ const BookDetail = () => {
                         </div>
                         <div className="listCH mt-3 d-flex flex-column overflow-y-scroll" style={{ height: '300px' }}>
                             <ListCh chapters={result?.chapters} search={search} />
+                        </div>
+                    </div>
+                </div>
+                <div className="card mt-3">
+                    <div className="card-header">
+                        <div className="d-flex">
+                            <div style={{
+                                backgroundColor: "var(--bs-secondary-bg)",
+                                marginBottom: "-10px"
+                            }} className="px-3 pt-2 rounded-top">
+                                <h6 className="card-title">Related</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <div className="row d-flex justify-content-evenly">
+                            {related?.map((el, index) => (
+                                <div className="col-6 col-md-2 px-2 my-2" key={index}>
+                                    <a href={"/book/" + el.path} className="popularHover">
+                                        <div className="card popular">
+                                            <div className="thumb" >
+                                                <ImageLoader src={el.thumb} alt={el.title} />
+                                            </div>
+                                            <div className="card-body">
+                                                <h6 className="card-title title fs-6 lh-1 word-break" style={{
+                                                    color: "var(--bs-emphasis-color)"
+                                                }}>{el.title}</h6>
+                                                <p className="card-text mb-0" style={{
+                                                    fontSize: "13px"
+                                                }}>{el.chapter}</p>
+                                                <div className="ratings">
+                                                    <div className="empty-stars"></div>
+                                                    <div className="full-stars" style={{ width: decimalToPercent(el.rating) }}></div>
+                                                    <span className="text-muted">{el.rating}</span>
+                                                </div>
+                                                <br />
+                                                <div className="badgeInfo">
+                                                    <div className="float-start ms-2 mt-2">
+                                                        <BookType className={el.type} />
+                                                    </div>
+                                                    <div className="float-end me-2 mt-2">
+                                                        <BookStatus className={el.status} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
