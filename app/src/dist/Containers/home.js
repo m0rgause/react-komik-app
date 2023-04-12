@@ -5,6 +5,7 @@ import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
 import BookStatus from "../Components/book_status";
 import Galleries from "../Components/galleries";
+import PageLoader from "../Components/page_loader";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -14,6 +15,7 @@ const Home = () => {
     const [popular, setPopular] = useState([]);
     const [newRelease, setNewRelease] = useState([]);
     const [project, setProject] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get("https://api.kikii.me/api/home")
@@ -21,8 +23,9 @@ const Home = () => {
                 setPopular(response.data.result.popular);
                 setNewRelease(response.data.result.newRelease);
                 setProject(response.data.result.project);
+                setIsLoading(false);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => { console.log(error); setIsLoading(false) });
     }, []);
     const options = {
         nav: true,
@@ -38,6 +41,9 @@ const Home = () => {
                 items: 5
             }
         }
+    }
+    if (isLoading) {
+        return <PageLoader />
     }
     return (
         <div className="container">

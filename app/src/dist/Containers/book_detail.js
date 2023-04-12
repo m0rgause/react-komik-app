@@ -7,6 +7,7 @@ import ListCh from "../Components/list_ch";
 import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
 import BookStatus from "../Components/book_status";
+import PageLoader from "../Components/page_loader";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -17,16 +18,23 @@ const BookDetail = () => {
     const [result, setResult] = useState([]);
     const [related, setRelated] = useState([]);
     const [search, setSearch] = useState('');
-    console.log(search)
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get(`${config.server}api/book/detail/${path}`)
             .then((response) => {
                 setResult(response.data.result);
                 setRelated(response.data.related);
+                setIsLoading(false);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => { console.log(error); setIsLoading(false) });
     }, []);
+
+    if (isLoading) {
+        return (
+            <PageLoader />
+        )
+    }
 
     return (
         <HelmetProvider>
@@ -38,7 +46,7 @@ const BookDetail = () => {
                     <div className="card-header">
                         <div className="d-flex">
                             <div style={{
-                                backgroundColor: "var(--bs-body-bg)",
+                                backgroundColor: "var(--bs-secondary-bg)",
                                 marginBottom: "-10px"
                             }} className="px-3 pt-2 rounded-top">
                                 <h6 className="card-title text-center">{result?.title?.english}</h6>
