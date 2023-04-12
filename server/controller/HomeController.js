@@ -3,6 +3,10 @@ const cheerio = require('cheerio');
 const { uri } = require('../config.json');
 
 function _replace(link) {
+    return link.replace(uri, '')
+}
+
+function _replace2(link) {
     return link.replace(uri + '/manga', '')
 }
 const home = async (req, res) => {
@@ -15,7 +19,7 @@ const home = async (req, res) => {
         getPopular.each((i, el) => {
             popular.push({
                 title: $(el).find("div.bsx > a").attr('title'),
-                path: _replace($(el).find("div.bsx > a").attr("href")),
+                path: _replace2($(el).find("div.bsx > a").attr("href")),
                 type: $(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="type"]').attr('class').replace("type", ''),
                 status: ($(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="status"]').text() !== "") ? "Completed" : "Ongoing",
                 thumb: $(el).find('div.bsx > a').eq(0).find("img").attr('src'),
@@ -36,7 +40,7 @@ const home = async (req, res) => {
             })
             project.push({
                 title: $(el).find('div.imgu > a').attr('title'),
-                path: _replace($(el).find('div.imgu > a').attr('href')),
+                path: _replace2($(el).find('div.imgu > a').attr('href')),
                 thumb: $(el).find('div.imgu > a > img').attr('src'),
                 type: $(el).find('div.luf > ul').attr('class'),
                 chapters: chapters
@@ -56,7 +60,7 @@ const home = async (req, res) => {
             })
             newRelease.push({
                 title: $(el).find('div.imgu > a').attr('title'),
-                path: _replace($(el).find('div.imgu > a').attr('href')),
+                path: _replace2($(el).find('div.imgu > a').attr('href')),
                 thumb: $(el).find('div.imgu > a > img').attr('src'),
                 type: $(el).find('div.luf > ul').attr('class'),
                 chapters: chapters

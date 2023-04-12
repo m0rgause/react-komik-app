@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BookDetail from './dist/Containers/book_detail';
+import BookReader from './dist/Containers/book_reader';
 import NavBar from './dist/Components/nav_bar';
 import Home from './dist/Containers/home';
 import Footer from './dist/Components/footer';
@@ -15,6 +16,7 @@ root.render(
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:path" element={<BookReader />} />
           <Route path="/book/:path" element={<BookDetail />} />
         </Routes>
       </div>

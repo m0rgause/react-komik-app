@@ -17,7 +17,7 @@ function getRelated(books) {
     books.each((i, el) => {
         book.push({
             title: $(el).find("div.bsx > a").attr('title'),
-            path: _replace($(el).find("div.bsx > a").attr("href")),
+            path: _replace2($(el).find("div.bsx > a").attr("href")),
             type: $(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="type"]').attr('class').replace("type", ''),
             status: ($(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="status"]').text() !== "") ? "Completed" : "Ongoing",
             thumb: $(el).find('div.bsx > a').eq(0).find("img").attr('src'),
@@ -47,8 +47,8 @@ const read = async (req, res) => {
             result: {
                 id: getPage.post_id,
                 title: title,
-                prevChapter: getPage.prevUrl,
-                nextChapter: getPage.nextUrl,
+                prevChapter: _replace(getPage.prevUrl),
+                nextChapter: _replace(getPage.nextUrl),
                 pages: getPage.sources,
             }
         })
