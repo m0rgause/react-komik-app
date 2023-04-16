@@ -4,7 +4,7 @@ import LazyLoad from "react-lazy-load";
 
 const ImageLoader = (props) => {
     return (
-        <LazyLoad>
+        <LazyLoad offset={300} >
             <Img key={props.index}
                 src={"https://cdn.statically.io/img/" + props.src.replace('https://', "")}
                 alt={props.alt}

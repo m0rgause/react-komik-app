@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
 import PageLoader from "../Components/page_loader";
-import ImageLoader from "../Components/image_loader";
+import LazyLoad from "react-lazy-load";
+import config from "../../config.json";
 import $ from "jquery";
 
 const ChapterButtons = ({ book }) => {
@@ -31,12 +32,13 @@ const BookReader = () => {
     const { path } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [book, setBook] = useState(null);
+    const [scrollPosition, setScrollPosition] = useState(0);
 
     useEffect(() => {
         let isMounted = true;
         setIsLoading(true);
         axios
-            .get(`https://api.kikii.me/api/book/${path}`)
+            .get(`${config.server}book/${path}`)
             .then((response) => {
                 if (isMounted) {
                     setBook(response.data.result);
@@ -50,13 +52,52 @@ const BookReader = () => {
         return () => {
             isMounted = false;
         };
-    }, [path])
+    }, [path]);
+
     useEffect(() => {
-        $(window).on("scroll", function () {
-            let scroll = $(window).scrollTop();
-            let box = $("#reader").outerHeight(!0);
-            scroll >= $("#reader").offset().top ? scroll <= $("#reader").offset().top + box ? $(".bar-long").css("width", (scroll - $("#reader").offset().top) / box * 100 + "%") : $(".bar-long").css("width", "100%") : $(".bar-long").css("width", "0%")
-        });
+        if (!isLoading) {
+            $(window).on("scroll", function () {
+                let readerEl = $("#reader");
+                if (readerEl.length > 0) {
+                    let scroll = $(window).scrollTop();
+                    let box = readerEl.outerHeight(!0);
+                    scroll >= readerEl.offset().top ? scroll <= readerEl.offset().top + box ? $(".bar-long").css("width", (scroll - readerEl.offset().top) / box * 100 + "%") : $(".bar-long").css("width", "100%") : $(".bar-long").css("width", "0%");
+                    setScrollPosition(scroll);
+                    let dataBook = {
+                        id: book?.id,
+                        title: book?.title,
+                        path: book?.path,
+                        thumb: book?.thumb,
+                        scrollPosition: scrollPosition,
+                    }
+                    localStorage.setItem(`post_${book?.book}`, JSON.stringify(dataBook));
+                    if (localStorage.getItem('history') === null) {
+                        let history = [`post_${book?.book}`];
+                        localStorage.setItem('history', JSON.stringify(history));
+                    } else {
+                        let history = [];
+                        history = JSON.parse(localStorage.getItem('history')) || [];
+                        if (history.includes(`post_${book?.book}`)) {
+                            history.unshift(history.splice(history.indexOf(`post_${book?.book}`), 1)[0]);
+                        } else {
+                            history.unshift(`post_${book?.book}`);
+                        }
+                        localStorage.setItem('history', JSON.stringify(history));
+                    }
+                }
+            });
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        localStorage.setItem("scrollPosition", scrollPosition);
+    }, [scrollPosition]);
+
+    useEffect(() => {
+        const previousScrollPosition = localStorage.getItem("scrollPosition");
+        if (previousScrollPosition) {
+            $(window).scrollTop(previousScrollPosition);
+        }
     }, []);
 
     if (isLoading) {
@@ -83,7 +124,9 @@ const BookReader = () => {
             >
                 <ChapterButtons book={book} />
                 {book?.pages[0]?.images.map((el, index) => (
-                    <ImageLoader key={index} src={el} index={index} alt={book?.title} />
+                    <LazyLoad key={index} offset={300} >
+                        <img src={el} alt={book?.title} style={{ width: '100%' }} />
+                    </LazyLoad>
                 ))}
                 <ChapterButtons book={book} />
             </div>

@@ -142,7 +142,6 @@
     position: absolute;
 }
 
-
 .galleriesThumb {
     display: block;
     position: relative;
@@ -150,7 +149,6 @@
     overflow: hidden;
     border-radius: 3px;
 }
-
 
 .galleriesThumb>div>img {
     max-width: 100% !important;
@@ -173,7 +171,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 7px;
 }
 
 /* Track */

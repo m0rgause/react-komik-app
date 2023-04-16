@@ -40,12 +40,18 @@ const read = async (req, res) => {
         let getPage = $('script:contains(ts_reader.run)').text()
         let regex = /ts_reader.run[(]\s*([^);]+)/
         getPage = JSON.parse(regex.exec(getPage)[1])
+        let allBook = $('div.allc > a').attr('href')
+        const response2 = await Axios.get(`${allBook}`)
+        $2 = cheerio.load(response2.data);
+        const thumb = $2('div.thumb > img').attr('src')
 
         return res.status(200).send({
             code: 200,
             message: "Successfully",
             result: {
                 id: getPage.post_id,
+                book: _replace2(allBook),
+                thumb: thumb,
                 title: title,
                 prevChapter: _replace(getPage.prevUrl),
                 nextChapter: _replace(getPage.nextUrl),

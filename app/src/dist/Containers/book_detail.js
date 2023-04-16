@@ -21,14 +21,14 @@ const BookDetail = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`${config.server}api/book/detail/${path}`)
+        axios.get(`${config.server}book/detail/${path}`)
             .then((response) => {
                 setResult(response.data.result);
                 setRelated(response.data.related);
                 setIsLoading(false);
             })
             .catch((error) => { console.log(error); setIsLoading(false) });
-    }, []);
+    }, [path]);
 
     if (isLoading) {
         return (
@@ -57,7 +57,7 @@ const BookDetail = () => {
                         <div className="row">
                             <div className="col-md-3 col-12 text-center">
                                 <img src={result?.thumb} alt={result?.title?.english} width="100%" className="mb-3" />
-                                <a href="#" className="btn bg-body-tertiary form-control text-white bgH"><i className="bi bi-bookmark"></i> Bookmark</a>
+                                <a href="#bookmark" className="btn bg-body-tertiary form-control text-white bgH"><i className="bi bi-bookmark"></i> Bookmark</a>
                             </div>
                             <div className="col-md-9 col-12 mt-3">
                                 {result?.title?.full !== '' ?
