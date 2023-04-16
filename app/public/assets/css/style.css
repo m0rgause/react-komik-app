@@ -186,3 +186,20 @@
     border-radius: 10px;
     background: var(--bs-tertiary-bg);
 }
+
+.ch-progress-bar .bar {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.bar {
+    margin: 0 auto;
+    height: 5px;
+    background: #252525;
+    max-width: calc(100% - 0px);
+}
+
+.bar-long {
+    height: 5px;
+    background: #6e4f9d;
+}

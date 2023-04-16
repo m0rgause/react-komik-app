@@ -119,8 +119,18 @@
             showActiveTheme(theme, true)
           })
         })
+
+      $(window).scroll(function () {
+        let scroll = $(window).scrollTop();
+        let box = $('#reader').outerHeight(!0);
+        console.log(scroll, box)
+        scroll >= $("#reader").offset().top ? scroll <= $("#reader").offset().top + box ? $(".bar-long").css("width", (scroll - $("#reader").offset().top) / box * 100 + "%") : $(".bar-long").css("width", "100%") : $(".bar-long").css("width", "0%")
+
+
+      })
+
     })
-    // });
+
 
   </script>
 </body>
