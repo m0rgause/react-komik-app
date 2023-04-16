@@ -4,6 +4,7 @@ import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
 import PageLoader from "../Components/page_loader";
 import ImageLoader from "../Components/image_loader";
+import $ from "jquery";
 
 const ChapterButtons = ({ book }) => {
     return (
@@ -50,13 +51,17 @@ const BookReader = () => {
             isMounted = false;
         };
     }, [path])
-
+    useEffect(() => {
+        $(window).on("scroll", function () {
+            let scroll = $(window).scrollTop();
+            let box = $("#reader").outerHeight(!0);
+            scroll >= $("#reader").offset().top ? scroll <= $("#reader").offset().top + box ? $(".bar-long").css("width", (scroll - $("#reader").offset().top) / box * 100 + "%") : $(".bar-long").css("width", "100%") : $(".bar-long").css("width", "0%")
+        });
+    }, []);
 
     if (isLoading) {
         return <PageLoader />;
     }
-
-
 
     return (
         <HelmetProvider>
@@ -70,7 +75,7 @@ const BookReader = () => {
             </div>
             <div
                 id="reader"
-                className="d-flex flex-column "
+                className="d-flex flex-column overflow-y-scroll"
                 style={{
                     maxWidth: "1142px",
                     margin: "10px auto",
