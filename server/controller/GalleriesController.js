@@ -1,10 +1,7 @@
 const { default: Axios } = require('axios');
 const cheerio = require('cheerio');
 const { uri } = require('../config.json');
-
-function _replace(link) {
-    return link.replace(uri, '')
-}
+const { _replace } = require('../utils/func.js');
 
 const gallery = async (req, res) => {
     try {
@@ -38,7 +35,6 @@ const gallery = async (req, res) => {
                 thumb: $(el).find('div.bsx > a').eq(0).find("img").attr('src'),
                 chapter: $(el).find('div.bsx > a > div.bigor > div.adds > div.epxs ').text(),
                 rating: Number($(el).find('div.bsx > a > div.bigor > div.adds > div.rt > div.rating > div.numscore ').text()),
-
             })
         })
         return res.status(200).send({ code: 200, message: "Succesfully", page: Number(page), result: book });

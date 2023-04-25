@@ -1,34 +1,8 @@
 const { default: Axios } = require('axios');
 const cheerio = require('cheerio');
 const { uri } = require('../config.json');
+const { _replace, _replace2, _replaceSpace, getBooks } = require('../utils/func.js');
 
-function _replace(link) {
-    return link.replace(uri, '')
-}
-function _replace2(link) {
-    return link.replace(uri + '/manga/', '')
-}
-function _replaceSpace(link) {
-    return link.replaceAll('\t', '').replaceAll('\n', '').replaceAll('\r', '').trim()
-}
-
-function getRelated(books) {
-    let book = []
-    books.each((i, el) => {
-        book.push({
-            title: $(el).find("div.bsx > a").attr('title'),
-            path: _replace2($(el).find("div.bsx > a").attr("href")),
-            type: $(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="type"]').attr('class').replace("type", ''),
-            status: ($(el).find('div.bsx > a').eq(0).find('div.limit > span[class*="status"]').text() !== "") ? "Completed" : "Ongoing",
-            thumb: $(el).find('div.bsx > a').eq(0).find("img").attr('src'),
-            chapter: $(el).find('div.bsx > a > div.bigor > div.adds > div.epxs ').text(),
-            rating: Number($(el).find('div.bsx > a > div.bigor > div.adds > div.rt > div.rating > div.numscore ').text()),
-
-        })
-    })
-    return book
-
-}
 
 const read = async (req, res) => {
     try {
@@ -112,7 +86,7 @@ const detail = async (req, res) => {
             }
         }).get()
 
-        const related = getRelated($('div.listupd > div.bs'))
+        const related = getBooks($('div.listupd > div.bs'))
 
 
         return res.status(200).send({
@@ -130,7 +104,7 @@ const detail = async (req, res) => {
         })
 
     } catch (err) {
-        console.log([error.code, error.request.res.statusCode, error.config.url])
+        // console.log([error.code, error.request.res.statusCode, error.config.url])
         return res.status(404).send({ code: 404, message: "Not Found" })
     }
 }

@@ -4,6 +4,7 @@ const express = require('express');
 const { bookRoute } = require("./BookRoute");
 const { galleriesRoute } = require('./GalleriesRoute');
 const { homeRoute } = require('./HomeRoute');
+const { searchRoute } = require('./SearchRoute');
 
 
 const router = express()
@@ -12,5 +13,6 @@ const router = express()
 router.use(galleriesRoute)
 router.use(bookRoute)
 router.use(homeRoute)
+router.use(searchRoute)
 
 module.exports = { router };

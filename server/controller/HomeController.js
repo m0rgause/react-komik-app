@@ -1,14 +1,8 @@
 const { default: Axios } = require('axios');
 const cheerio = require('cheerio');
 const { uri } = require('../config.json');
+const { _replace, _replace2, _replaceSpace, getBooks } = require('../utils/func.js');
 
-function _replace(link) {
-    return link.replace(uri, '')
-}
-
-function _replace2(link) {
-    return link.replace(uri + '/manga', '')
-}
 const home = async (req, res) => {
     try {
         const response = await Axios.get(uri)
@@ -16,7 +10,7 @@ const home = async (req, res) => {
 
         let popular = []
         const getPopular = $('div.listupd > div.bs');
-        getPopular.each((i, el) => {
+        getPopular.each(async (i, el) => {
             popular.push({
                 title: $(el).find("div.bsx > a").attr('title'),
                 path: _replace2($(el).find("div.bsx > a").attr("href")),
@@ -29,7 +23,7 @@ const home = async (req, res) => {
         })
 
         let project = []
-        $('div.listupd').eq(1).find('div.utao').each((i, el) => {
+        $('div.listupd').eq(1).find('div.utao').each(async (i, el) => {
             let chapters = []
             $(el).find('div.luf > ul > li').each((i, ell) => {
                 chapters.push({
@@ -46,7 +40,6 @@ const home = async (req, res) => {
                 chapters: chapters
             })
         })
-
 
         let newRelease = []
         $('div.listupd').eq(2).find('div.utao').each((i, el) => {
@@ -67,18 +60,17 @@ const home = async (req, res) => {
             })
         })
 
-
         return res.status(200).send({
             code: 200,
             message: "Successfully!",
             result: {
-                popular,
-                project,
-                newRelease,
+                popular: popular,
+                project: project,
+                newRelease: newRelease,
             }
         })
     } catch (error) {
-        console.log([error.code, error.request.res.statusCode, error.config.url])
+        console.log([error.code])
         return res.status(500).send({ code: 500, message: "Bad request" })
     }
 }
