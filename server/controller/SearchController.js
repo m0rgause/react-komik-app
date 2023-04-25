@@ -14,7 +14,10 @@ const search = async (req, res) => {
         const response = await Axios.get(`${uri}/page/${page}/?s=${query}`)
         $ = cheerio.load(response.data);
         const books = getBooks($('div.listupd > div.bs'))
-        const maxPage = Number($('div.pagination > a').eq(-2).text()) || 1
+        let maxPage = Number($('div.pagination > a').eq(-2).text()) || 1
+        if (page > maxPage) {
+            maxPage = maxPage + 2
+        }
         return res.status(200).send({ code: 200, message: "Succesfully", page: Number(page), maxPage, result: books });
     } catch (error) {
         return res.status(500).send({
