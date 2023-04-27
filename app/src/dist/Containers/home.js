@@ -6,6 +6,7 @@ import BookType from "../Components/book_type";
 import BookStatus from "../Components/book_status";
 import Galleries from "../Components/galleries";
 import PageLoader from "../Components/page_loader";
+import History from "../Components/history";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -111,6 +112,7 @@ const Home = () => {
                     <Galleries data={newRelease} title={"New Release"} />
                     {/* End New Release */}
                 </div>
+                {/* Last Read */}
                 <div className="col-md-3 col-lg-3 d-none d-sm-block">
                     <div className="card mt-5 shadow">
                         <div className="card-header">
@@ -124,6 +126,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="card-body">
+                            <History />
                         </div>
                     </div>
                 </div>
