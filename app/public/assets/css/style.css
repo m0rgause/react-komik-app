@@ -1,3 +1,11 @@
+:root {
+    --nav-color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-brand {
+    color: var(--nav-color) !important;
+}
+
 .badgeInfo {
     /* margin: 0 !important;
     padding: 0 !important; */
@@ -204,16 +212,19 @@
 
 .search[type="text"] {
     position: relative;
-    padding: 8px;
-    width: 50px;
+    padding-left: 10px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 155px;
     /* Adjusted width based on design */
     color: #fff;
     font-size: 14px;
     font-weight: 100;
     letter-spacing: 0.5px;
     border: none;
-    border-top-right-radius: 30%;
-    border-bottom-right-radius: 30%;
+    border-radius: 10px;
+    /* border-radius: 50%; */
     outline: none;
     transition: width 0.4s ease, border-radius 0.4s ease;
     /* Explicitly listing properties to transition */
@@ -221,11 +232,15 @@
     background: #573e7d;
 }
 
-.search[type="text"]:hover,
-.search[type="text"]:focus {
-    width: 200px;
-    border-radius: 5px;
+::placeholder {
+    color: #aa87df;
 }
+
+/* .search[type="text"]:hover,
+.search[type="text"]:focus {
+    width: 120px;
+    border-radius: 5px;
+} */
 
 .font-search {
     position: relative;
@@ -241,8 +256,8 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 25px;
 }
 
 .switch input {
@@ -266,10 +281,10 @@
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 21px;
+    width: 21px;
+    left: 2px;
+    bottom: 2px;
     background: var(--bs-tertiary-bg) url('/assets/img/moon.svg') no-repeat center;
     -webkit-transition: .4s;
     transition: .4s;
@@ -296,4 +311,20 @@ input:checked+.slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.navbar-toggler {
+    border: 0;
+}
+
+.navbar-toggler span {
+    font-size: 25px;
+    color: var(--nav-color);
+    width: 25px;
+    height: 25px;
+}
+
+.offcanvas {
+    background-color: rgba(var(--bs-tertiary-bg-rgb), 0.9) !important;
+    color: var(--nav-color) !important;
 }

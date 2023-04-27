@@ -11,11 +11,11 @@ const NavBar = () => {
 
     useEffect(() => {
         if (localStorage.getItem('theme') === 'dark') {
-            setTheme('light');
-            $('#slider').prop('checked', true);
-        } else {
             setTheme('dark');
             $('#slider').prop('checked', false);
+        } else {
+            setTheme('light');
+            $('#slider').prop('checked', true);
         }
     }, []);
 
@@ -46,35 +46,42 @@ const NavBar = () => {
             </Helmet>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container">
-                    <button className="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu">
+                        <span class="bi bi-list"></span>
                     </button>
-                    <Link className="navbar-brand ms-3" to="/">{config.title}</Link>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/galleries">Manga List</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/bookmark">Bookmark</Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="d-flex d-block">
-                        <div className="searchBar">
-                            <form>
-                                <input type="text" className="search" name="s" />
-                                <i className="bi bi-search font-search"></i>
-                            </form>
+                    <Link className="navbar-brand fs-6" to="/">{config.title}</Link>
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="navMenu" aria-labelledby="navMenuLabel">
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
-                        <div className="theme-switch">
-                            <label id="switch" className="switch">
-                                <input type="checkbox" id="slider" onChange={toggleSwitcher} />
-                                <span className="slider round"></span>
-                            </label>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                                <li className="nav-item">
+                                    <Link className="nav-link" aria-current="page" to="/">Home</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/galleries">Manga List</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/bookmark">Bookmark</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="ms-auto">
+                        <div className="d-flex">
+                            <div className="searchBar">
+                                <form method="get" action="">
+                                    <input type="text" className="search" name="s" placeholder="Search" />
+                                    <i className="bi bi-search font-search"></i>
+                                </form>
+                            </div>
+                            <div className="theme-switch">
+                                <label id="switch" className="switch">
+                                    <input type="checkbox" id="slider" onChange={toggleSwitcher} />
+                                    <span className="slider round"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
