@@ -35,7 +35,7 @@ const Galleries = (props) => {
                                                     <li key={i}>
                                                         <div className="float-start">
                                                             <a className="title fw-light" style={{
-                                                                color: "var(--bs-emphasis-color)",
+                                                                color: "rgba(var(--bs-emphasis-color-rgb), .8)",
                                                                 fontSize: "14px"
                                                             }} href={ell.path}>{ell.ch}</a>
                                                         </div>

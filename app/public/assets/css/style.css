@@ -328,3 +328,9 @@ input:checked+.slider:before {
     background-color: rgba(var(--bs-tertiary-bg-rgb), 0.9) !important;
     color: var(--nav-color) !important;
 }
+
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}

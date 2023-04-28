@@ -8,8 +8,16 @@ const NavBar = () => {
     $('.srcmob').click(function () {
         $('.minmb').toggleClass('show')
     })
+    const storedTheme = localStorage.getItem('theme');
+    const getPreferredTheme = () => {
+        if (storedTheme) {
+            return storedTheme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
 
     useEffect(() => {
+        setTheme(getPreferredTheme());
         if (localStorage.getItem('theme') === 'dark') {
             setTheme('dark');
             $('#slider').prop('checked', false);
@@ -46,16 +54,16 @@ const NavBar = () => {
             </Helmet>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu">
-                        <span class="bi bi-list"></span>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu">
+                        <span className="bi bi-list"></span>
                     </button>
                     <Link className="navbar-brand fs-6" to="/">{config.title}</Link>
-                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="navMenu" aria-labelledby="navMenuLabel">
-                        <div class="offcanvas-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <div className="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="navMenu" aria-labelledby="navMenuLabel">
+                        <div className="offcanvas-header">
+                            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                        <div className="offcanvas-body">
+                            <ul className="navbar-nav justify-content-start flex-grow-1 pe-3">
                                 <li className="nav-item">
                                     <Link className="nav-link" aria-current="page" to="/">Home</Link>
                                 </li>
@@ -71,9 +79,9 @@ const NavBar = () => {
                     <div className="ms-auto">
                         <div className="d-flex">
                             <div className="searchBar">
-                                <form method="get" action="">
+                                <form method="get" action="/search">
                                     <input type="text" className="search" name="s" placeholder="Search" />
-                                    <i className="bi bi-search font-search"></i>
+                                    <button type="submit" className="font-search btn p-0"><i className="bi bi-search "></i></button>
                                 </form>
                             </div>
                             <div className="theme-switch">
