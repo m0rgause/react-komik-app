@@ -18,6 +18,7 @@ const read = async (req, res) => {
         const response2 = await Axios.get(`${allBook}`)
         $2 = cheerio.load(response2.data);
         const thumb = $2('div.thumb > img').attr('src')
+        const linkPath = $('link').attr('rel', 'canonical').eq(0);
 
         return res.status(200).send({
             code: 200,
@@ -27,6 +28,7 @@ const read = async (req, res) => {
                 book: _replace2(allBook),
                 thumb: thumb,
                 title: title,
+                path: _replace(linkPath.attr('href')).replace('/feed', ''),
                 prevChapter: _replace(getPage.prevUrl),
                 nextChapter: _replace(getPage.nextUrl),
                 pages: getPage.sources,

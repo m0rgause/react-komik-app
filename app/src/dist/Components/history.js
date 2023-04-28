@@ -12,9 +12,9 @@ const History = () => {
                     <div className="col-12 border-bottom py-3" key={index}>
                         <div className="row">
                             <div className="col-md-4 col-4 col-sm-4">
-                                {/* <a href={"book" + book.path} className='galleriesThumb'> */}
-                                <img src={book.thumb} alt={book.title} style={{ width: '100%' }} />
-                                {/* </a> */}
+                                <a href={"book/" + book.path} className='galleriesThumb'>
+                                    <img src={book.thumb} alt={book.title} style={{ width: '100%' }} />
+                                </a>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8">
                                 <div className="float-start" style={{ width: "100%" }} ></div>
