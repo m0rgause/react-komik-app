@@ -32,7 +32,6 @@ const BookReader = () => {
     const { path } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [book, setBook] = useState(null);
-    const [scrollPosition, setScrollPosition] = useState(0);
 
     useEffect(() => {
         let isMounted = true;
@@ -62,13 +61,12 @@ const BookReader = () => {
                     let scroll = $(window).scrollTop();
                     let box = readerEl.outerHeight(!0);
                     scroll >= readerEl.offset().top ? scroll <= readerEl.offset().top + box ? $(".bar-long").css("width", (scroll - readerEl.offset().top) / box * 100 + "%") : $(".bar-long").css("width", "100%") : $(".bar-long").css("width", "0%");
-                    setScrollPosition(scroll);
                     let dataBook = {
                         id: book?.id,
                         title: book?.title,
                         path: book?.path,
                         thumb: book?.thumb,
-                        scrollPosition: scrollPosition,
+                        scrollPosition: scroll,
                     }
                     localStorage.setItem(`post_${book?.book}`, JSON.stringify(dataBook));
                     if (localStorage.getItem('history') === null) {
@@ -89,16 +87,14 @@ const BookReader = () => {
         }
     }, [isLoading]);
 
-    useEffect(() => {
-        localStorage.setItem("scrollPosition", scrollPosition);
-    }, [scrollPosition]);
-
-    useEffect(() => {
-        const previousScrollPosition = localStorage.getItem("scrollPosition");
-        if (previousScrollPosition) {
+    const bookPost = localStorage.getItem(`post_${book?.book}`);
+    if (bookPost) {
+        setTimeout(() => {
+            const previousScrollPosition = JSON.parse(bookPost)?.scrollPosition;
+            console.log(previousScrollPosition);
             $(window).scrollTop(previousScrollPosition);
-        }
-    }, []);
+        }, 2000);
+    }
 
     if (isLoading) {
         return <PageLoader />;
