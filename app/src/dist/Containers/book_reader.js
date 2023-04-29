@@ -106,7 +106,7 @@ const BookReader = () => {
         }
     });
 
-    if (isLoading) {
+    if (isLoading || !book) {
         return <PageLoader />;
     }
 
