@@ -53,15 +53,15 @@ const History = () => {
                                 return (
                                     <div key={index}>
                                         <div className="px-2 my-2">
-                                            <a href={book.path} className="popularHover">
+                                            <a href={book?.path} className="popularHover">
                                                 <div className="card popular">
                                                     <div className="thumb" >
-                                                        <ImageLoader src={book.thumb} alt={book.title} />
+                                                        <ImageLoader src={book?.thumb} alt={book?.title} />
                                                     </div>
                                                     <div className="card-body">
                                                         <h6 className="card-title title fs-6 lh-1 word-break" style={{
                                                             color: "var(--bs-emphasis-color)"
-                                                        }}>{book.title}</h6>
+                                                        }}>{book?.title}</h6>
                                                     </div>
                                                 </div>
                                             </a>

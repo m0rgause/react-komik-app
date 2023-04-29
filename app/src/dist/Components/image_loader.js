@@ -6,7 +6,7 @@ const ImageLoader = (props) => {
     return (
         <LazyLoad offset={300} >
             <Img key={props.index}
-                src={"https://cdn.statically.io/img/" + props.src.replace('https://', "")}
+                src={props.src}
                 alt={props.alt}
                 className={props.className}
                 id={props.index}
