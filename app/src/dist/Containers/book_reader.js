@@ -54,6 +54,7 @@ const BookReader = () => {
     }, [path]);
 
     useEffect(() => {
+        $(".home-button").hide();
         if (!isLoading) {
             $(window).on("scroll", function () {
                 let readerEl = $("#reader");
@@ -91,20 +92,35 @@ const BookReader = () => {
     if (bookPost) {
         setTimeout(() => {
             const previousScrollPosition = JSON.parse(bookPost)?.scrollPosition;
-            console.log(previousScrollPosition);
             $(window).scrollTop(previousScrollPosition);
         }, 2000);
     }
 
+
+    $(window).on("scroll", function () {
+        let scroll = $(window).scrollTop();
+        if (scroll > 100) {
+            $(".home-button").show();
+        } else {
+            $(".home-button").hide();
+        }
+    });
+
     if (isLoading) {
         return <PageLoader />;
     }
+
 
     return (
         <HelmetProvider>
             <Helmet>
                 <title>{book?.title}</title>
             </Helmet>
+
+            <a href="/" className="btn btn-sm bg-body-tertiary text-white bgH home-button sticky-top mt-5">
+                <i className="bi bi-arrow-left"></i>
+            </a>
+
             <div className="container mt-5">
                 <div className="title text-center">
                     <h4>{book?.title}</h4>

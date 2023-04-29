@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
+import config from "../../config.json";
 import ImageLoader from "../Components/image_loader";
 import BookType from "../Components/book_type";
 import BookStatus from "../Components/book_status";
@@ -19,7 +20,7 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get("https://api.kikii.me/api/home")
+        axios.get(`${config.server}home`)
             .then((response) => {
                 setPopular(response.data.result.popular);
                 setNewRelease(response.data.result.newRelease);
@@ -66,7 +67,7 @@ const Home = () => {
                             {popular.map((el, index) => (
                                 <div key={index}>
                                     <div className="px-2 my-2">
-                                        <a href={"/book" + el.path} className="popularHover">
+                                        <a href={"/book/" + el.path} className="popularHover">
                                             <div className="card popular">
                                                 <div className="thumb" >
                                                     <ImageLoader src={el.thumb} alt={el.title} />

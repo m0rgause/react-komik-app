@@ -1,6 +1,6 @@
 {
     "uri": "https://kiryuu.id",
-    "server": "http://localhost:5000/api/",
+    "server": "https://api.kikii.me/api/",
     "client": "http://localhost:3000/",
     "title": "Akie K"
 }
