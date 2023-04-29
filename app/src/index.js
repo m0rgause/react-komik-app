@@ -8,6 +8,7 @@ import Home from './dist/Containers/home';
 import Search from './dist/Containers/search';
 import Footer from './dist/Components/footer';
 import History from './dist/Containers/history';
+import Genres from './dist/Containers/genres';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,6 +23,7 @@ root.render(
           <Route path="/history" element={<History />} />
           <Route path="/book/:path" element={<BookDetail />} />
           <Route path="/search/:page?" element={<Search />} />
+          <Route path="/genres/:path/:page?" element={<Genres />} />
         </Routes>
       </div>
       <section className="footer">
