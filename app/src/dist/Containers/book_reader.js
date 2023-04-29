@@ -12,14 +12,14 @@ const ChapterButtons = ({ book }) => {
         <div className="d-flex justify-content-end my-3">
             <a
                 href={book?.prevChapter}
-                className={`btn bg-body-tertiary text-white bgH me-2 ${!book?.prevChapter && "disabled"
+                className={`btn btn-sm bg-body-tertiary text-white bgH me-2 ${!book?.prevChapter && "disabled"
                     }`}
             >
                 &lt; Prev Chapter
             </a>
             <a
                 href={book?.nextChapter}
-                className={`btn bg-body-tertiary text-white bgH ${!book?.nextChapter && "disabled"
+                className={`btn btn-sm bg-body-tertiary text-white bgH ${!book?.nextChapter && "disabled"
                     }`}
             >
                 Next Chapter &gt;
