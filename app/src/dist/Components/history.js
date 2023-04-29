@@ -1,6 +1,6 @@
 import React from "react";
 
-const History = () => {
+const HistoryPart = () => {
     const history = JSON.parse(localStorage.getItem("history")) || [];
 
     return (
@@ -31,4 +31,4 @@ const History = () => {
     );
 }
 
-export default History;
+export default HistoryPart;

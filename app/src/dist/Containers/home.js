@@ -7,7 +7,7 @@ import BookType from "../Components/book_type";
 import BookStatus from "../Components/book_status";
 import Galleries from "../Components/galleries";
 import PageLoader from "../Components/page_loader";
-import History from "../Components/history";
+import HistoryPart from "../Components/history";
 
 const decimalToPercent = (decimal) => {
     return Math.round(decimal * 10) + "%";
@@ -127,7 +127,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="card-body">
-                            <History />
+                            <HistoryPart />
                         </div>
                     </div>
                 </div>
