@@ -9,6 +9,7 @@ import Search from './dist/Containers/search';
 import Footer from './dist/Components/footer';
 import History from './dist/Containers/history';
 import Genres from './dist/Containers/genres';
+import Galleries from './dist/Containers/galleries';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -21,6 +22,7 @@ root.render(
           <Route path="/" element={<Home />} />
           <Route path="/:path" element={<BookReader />} />
           <Route path="/history" element={<History />} />
+          <Route path="/galleries/:uri?/:page?" element={<Galleries />} />
           <Route path="/book/:path" element={<BookDetail />} />
           <Route path="/search/:page?" element={<Search />} />
           <Route path="/genres/:path/:page?" element={<Genres />} />
