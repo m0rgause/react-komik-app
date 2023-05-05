@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
 import PageLoader from "../Components/page_loader";
 import LazyLoad from "react-lazy-load";
 import config from "../../config.json";
-import $ from "jquery";
+
 
 const ChapterButtons = ({ book }) => {
     return (
@@ -32,6 +32,7 @@ const BookReader = () => {
     const { path } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [book, setBook] = useState(null);
+    const previousScrollPositionRef = useRef(0);
 
     useEffect(() => {
         let isMounted = true;
@@ -54,14 +55,14 @@ const BookReader = () => {
     }, [path]);
 
     useEffect(() => {
-        $(".home-button").hide();
+        const homeButton = document.querySelector(".home-button");
         if (!isLoading) {
-            $(window).on("scroll", function () {
-                let readerEl = $("#reader");
-                if (readerEl.length > 0) {
-                    let scroll = $(window).scrollTop();
-                    let box = readerEl.outerHeight(!0);
-                    scroll >= readerEl.offset().top ? scroll <= readerEl.offset().top + box ? $(".bar-long").css("width", (scroll - readerEl.offset().top) / box * 100 + "%") : $(".bar-long").css("width", "100%") : $(".bar-long").css("width", "0%");
+            window.addEventListener("scroll", function () {
+                let readerEl = document.querySelector("#reader");
+                if (readerEl) {
+                    let scroll = window.pageYOffset;
+                    let box = readerEl.offsetHeight;
+                    scroll >= readerEl.offsetTop ? scroll <= readerEl.offsetTop + box ? document.querySelector(".bar-long").style.width = (scroll - readerEl.offsetTop) / box * 100 + "%" : document.querySelector(".bar-long").style.width = "100%" : document.querySelector(".bar-long").style.width = "0%";
                     let dataBook = {
                         id: book?.id,
                         title: book?.title,
@@ -86,25 +87,36 @@ const BookReader = () => {
                 }
             });
         }
-    }, [isLoading]);
+        if (homeButton) {
+            homeButton.style.display = "none";
+        }
+        return () => {
+            window.removeEventListener("scroll", function () { });
+        }
+    }, [isLoading, book]);
 
     const bookPost = localStorage.getItem(`post_${book?.book}`);
     if (bookPost) {
         setTimeout(() => {
             const previousScrollPosition = JSON.parse(bookPost)?.scrollPosition;
-            $(window).scrollTop(previousScrollPosition);
-        }, 2000);
+            window.scrollTo(0, previousScrollPosition);
+        }, 1000);
     }
 
 
-    $(window).on("scroll", function () {
-        let scroll = $(window).scrollTop();
-        if (scroll > 100) {
-            $(".home-button").show();
-        } else {
-            $(".home-button").hide();
+    const onScroll = () => {
+        let scroll = window.pageYOffset;
+        let homeButton = document.querySelector(".home-button");
+        if (homeButton) {
+            if (scroll > 100) {
+                homeButton.style.display = "block";
+            } else {
+                homeButton.style.display = "none";
+            }
         }
-    });
+    }
+
+    window.addEventListener("scroll", onScroll);
 
     if (isLoading || !book) {
         return <PageLoader />;
