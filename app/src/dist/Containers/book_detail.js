@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
@@ -19,6 +19,8 @@ const BookDetail = () => {
     const [related, setRelated] = useState([]);
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem("bookmarks")) || []);
+    const [isBookmarked, setIsBookmarked] = useState(false);
 
     useEffect(() => {
         axios.get(`${config.server}book/detail/${path}`)
@@ -30,10 +32,36 @@ const BookDetail = () => {
             .catch((error) => { console.log(error); setIsLoading(false) });
     }, [path]);
 
+    useEffect(() => {
+        const thumb = result?.thumb;
+        if (bookmarks[thumb]) {
+            setIsBookmarked(true);
+        } else {
+            setIsBookmarked(false);
+        }
+    }, [result, bookmarks]);
+
+    const handleBookmark = useCallback(() => {
+        console.log("clicked");
+        const thumb = result?.thumb;
+        const title = result?.title?.english;
+        const newBookmarks = { ...bookmarks };
+
+        if (newBookmarks[thumb]) {
+            delete newBookmarks[thumb];
+            setIsBookmarked(false);
+        } else {
+            newBookmarks[thumb] = title;
+            setIsBookmarked(true);
+        }
+
+        setBookmarks(newBookmarks);
+        setIsBookmarked(!isBookmarked);
+        localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+    }, [result?.thumb, result?.title?.english, bookmarks, isBookmarked, setBookmarks, setIsBookmarked]);
+
     if (isLoading) {
-        return (
-            <PageLoader />
-        )
+        return <PageLoader />
     }
 
     return (
@@ -57,7 +85,7 @@ const BookDetail = () => {
                         <div className="row">
                             <div className="col-md-3 col-12 text-center">
                                 <img src={result?.thumb} alt={result?.title?.english} width="100%" className="mb-3" />
-                                <a href="#bookmark" className="btn bg-body-tertiary form-control text-white bgH"><i className="bi bi-bookmark"></i> Bookmark</a>
+                                <button onClick={handleBookmark} className={`bookmark btn form-control text-white bgH ${isBookmarked ? 'bg-danger' : 'bg-body-tertiary '}`}><i className={`bi bi-${isBookmarked ? 'bookmark-fill' : 'bookmark'}`}></i> {isBookmarked ? 'Bookmarked' : 'Bookmark'}</button>
                             </div>
                             <div className="col-md-9 col-12 mt-3">
                                 {result?.title?.full !== '' ?
@@ -175,4 +203,4 @@ const BookDetail = () => {
     );
 }
 
-export default BookDetail;
+export default React.memo(BookDetail);
