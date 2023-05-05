@@ -3,30 +3,10 @@ import { useParams } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import axios from "axios";
 import PageLoader from "../Components/page_loader";
+import ChapterButtons from "../Components/ch_button";
 import LazyLoad from "react-lazy-load";
 import config from "../../config.json";
 
-
-const ChapterButtons = ({ book }) => {
-    return (
-        <div className="d-flex justify-content-end my-3">
-            <a
-                href={book?.prevChapter}
-                className={`btn btn-sm bg-body-tertiary text-white bgH me-2 ${!book?.prevChapter && "disabled"
-                    }`}
-            >
-                &lt; Prev Chapter
-            </a>
-            <a
-                href={book?.nextChapter}
-                className={`btn btn-sm bg-body-tertiary text-white bgH ${!book?.nextChapter && "disabled"
-                    }`}
-            >
-                Next Chapter &gt;
-            </a>
-        </div>
-    );
-};
 
 const BookReader = () => {
     const { path } = useParams();
