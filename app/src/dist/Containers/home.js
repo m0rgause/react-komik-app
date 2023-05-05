@@ -20,16 +20,22 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`${config.server}home`)
-            .then((response) => {
-                setPopular(response.data.result.popular);
-                setNewRelease(response.data.result.newRelease);
-                setProject(response.data.result.project);
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${config.server}home`);
+                const { popular, newRelease, project } = response.data.result;
+                setPopular(popular);
+                setNewRelease(newRelease);
+                setProject(project);
                 setIsLoading(false);
-            })
-            .catch((error) => { console.log(error); setIsLoading(false) });
+            } catch (error) {
+                console.log(error);
+                setIsLoading(false);
+            }
+        };
+        fetchData();
     }, []);
-    const options = {
+    const owlOptions = {
         nav: true,
         dots: false,
         responsive: {
@@ -63,7 +69,7 @@ const Home = () => {
                 </div>
                 <div className="card-body">
                     <div className="">
-                        <OwlCarousel className='owl-theme' {...options}>
+                        <OwlCarousel className='owl-theme' {...owlOptions}>
                             {popular.map((el, index) => (
                                 <div key={index}>
                                     <div className="px-2 my-2">
