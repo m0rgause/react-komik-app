@@ -10,6 +10,7 @@ import Footer from './dist/Components/footer';
 import History from './dist/Containers/history';
 import Genres from './dist/Containers/genres';
 import Galleries from './dist/Containers/galleries';
+import Bookmark from './dist/Containers/bookmarks';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -21,6 +22,7 @@ root.render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:path" element={<BookReader />} />
+          <Route path="/bookmark" element={<Bookmark />} />
           <Route path="/history" element={<History />} />
           <Route path="/galleries/:uri?/:page?" element={<Galleries />} />
           <Route path="/book/:path" element={<BookDetail />} />

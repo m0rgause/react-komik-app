@@ -33,8 +33,7 @@ const BookDetail = () => {
     }, [path]);
 
     useEffect(() => {
-        const thumb = result?.thumb;
-        if (bookmarks[thumb]) {
+        if (bookmarks?.length > 0 && bookmarks?.some(bookmark => bookmark?.thumb === result?.thumb)) {
             setIsBookmarked(true);
         } else {
             setIsBookmarked(false);
@@ -42,23 +41,33 @@ const BookDetail = () => {
     }, [result, bookmarks]);
 
     const handleBookmark = useCallback(() => {
-        console.log("clicked");
-        const thumb = result?.thumb;
-        const title = result?.title?.english;
-        const newBookmarks = { ...bookmarks };
-
-        if (newBookmarks[thumb]) {
-            delete newBookmarks[thumb];
-            setIsBookmarked(false);
-        } else {
-            newBookmarks[thumb] = title;
-            setIsBookmarked(true);
-        }
-
-        setBookmarks(newBookmarks);
+        let bookmarkHandle = JSON.parse(localStorage.getItem("bookmarks")) || [];
+        const currentUrl = window.location.href;
+        let path = currentUrl.split("/");
+        path = path[path.length - 2] + "/" + path[path.length - 1];
+        let newResult = { ...result, path: path }
+        bookmarkHandle.push(newResult);
+        localStorage.setItem("bookmarks", JSON.stringify(bookmarkHandle));
+        setBookmarks(bookmarkHandle);
         setIsBookmarked(!isBookmarked);
-        localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
-    }, [result?.thumb, result?.title?.english, bookmarks, isBookmarked, setBookmarks, setIsBookmarked]);
+    }, [isBookmarked, result]);
+
+    const handleUnbookmark = useCallback(() => {
+        let bookmarkHandle = JSON.parse(localStorage.getItem("bookmarks")) || [];
+        bookmarkHandle = bookmarkHandle.map((bookmark, index) => {
+            if (bookmark?.thumb === result?.thumb) {
+                bookmarkHandle.splice(index, 1);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarkHandle));
+                setBookmarks(bookmarkHandle);
+                console.log("same");
+                setIsBookmarked(false);
+            } else {
+                console.log("not same");
+                setIsBookmarked(true);
+            }
+            return bookmark; // return the modified bookmark
+        });
+    }, [result?.thumb, setBookmarks, setIsBookmarked]);
 
     if (isLoading) {
         return <PageLoader />
@@ -85,7 +94,7 @@ const BookDetail = () => {
                         <div className="row">
                             <div className="col-md-3 col-12 text-center">
                                 <img src={result?.thumb} alt={result?.title?.english} width="100%" className="mb-3" />
-                                <button onClick={handleBookmark} className={`bookmark btn form-control text-white bgH ${isBookmarked ? 'bg-danger' : 'bg-body-tertiary '}`}><i className={`bi bi-${isBookmarked ? 'bookmark-fill' : 'bookmark'}`}></i> {isBookmarked ? 'Bookmarked' : 'Bookmark'}</button>
+                                <button onClick={isBookmarked ? handleUnbookmark : handleBookmark} className={`bookmark btn form-control text-white bgH ${isBookmarked ? 'bg-danger' : 'bg-body-tertiary '}`}><i className={`bi bi-${isBookmarked ? 'bookmark-fill' : 'bookmark'}`}></i> {isBookmarked ? 'Bookmarked' : 'Bookmark'}</button>
                             </div>
                             <div className="col-md-9 col-12 mt-3">
                                 {result?.title?.full !== '' ?

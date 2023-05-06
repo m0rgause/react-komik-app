@@ -9,7 +9,7 @@ const History = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setHistory(JSON.parse(localStorage.getItem("history")));
+        setHistory(JSON.parse(localStorage.getItem("history")) || []);
         if (history) setIsLoading(false);
     }, []);
 
@@ -28,6 +28,7 @@ const History = () => {
             }
         }
     }
+
     if (isLoading) {
         return <PageLoader />
     }
@@ -68,7 +69,7 @@ const History = () => {
                                         </div>
                                     </div>
                                 )
-                            }) : <div></div>}
+                            }) : <div>Tidak ada History</div>}
                         </OwlCarousel>
                     </div>
                 </div>
